@@ -1,9 +1,11 @@
-[gd_scene load_steps=20 format=3 uid="uid://dao0jbh3ed1wm"]
+[gd_scene load_steps=22 format=3 uid="uid://dao0jbh3ed1wm"]
 
 [ext_resource type="Script" path="res://scripts/character.gd" id="1_kuvy8"]
 [ext_resource type="Texture2D" path="res://assets/Character/Adventurer-1.5/Individual Sprites/adventurer-idle-00.png" id="1_s3p0u"]
 [ext_resource type="Texture2D" path="res://assets/Character/Adventurer-1.5/Individual Sprites/adventurer-idle-01.png" id="2_omw11"]
+[ext_resource type="Texture2D" path="res://assets/Character/Adventurer-1.5/Individual Sprites/adventurer-fall-00.png" id="2_vbkfw"]
 [ext_resource type="Texture2D" path="res://assets/Character/Adventurer-1.5/Individual Sprites/adventurer-idle-02.png" id="3_3fv4a"]
+[ext_resource type="Texture2D" path="res://assets/Character/Adventurer-1.5/Individual Sprites/adventurer-fall-01.png" id="3_45wn2"]
 [ext_resource type="Texture2D" path="res://assets/Character/Adventurer-1.5/Individual Sprites/adventurer-idle-03.png" id="4_4825t"]
 [ext_resource type="Texture2D" path="res://assets/Character/Adventurer-1.5/Individual Sprites/adventurer-run-00.png" id="5_ykku8"]
 [ext_resource type="Texture2D" path="res://assets/Character/Adventurer-1.5/Individual Sprites/adventurer-run-01.png" id="6_ul1vp"]
@@ -20,6 +22,17 @@
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_6untl"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_vbkfw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_45wn2")
+}],
+"loop": true,
+"name": &"Fall",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("1_s3p0u")
@@ -97,7 +110,7 @@ script = ExtResource("1_kuvy8")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_6untl")
-animation = &"Idle"
+animation = &"Fall"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2.75)
