@@ -30,7 +30,7 @@ animations = [{
 "texture": ExtResource("3_45wn2")
 }],
 "loop": true,
-"name": &"Fall",
+"name": &"fall",
 "speed": 5.0
 }, {
 "frames": [{
@@ -47,7 +47,7 @@ animations = [{
 "texture": ExtResource("4_4825t")
 }],
 "loop": true,
-"name": &"Idle",
+"name": &"idle",
 "speed": 5.0
 }, {
 "frames": [{
@@ -58,7 +58,7 @@ animations = [{
 "texture": ExtResource("9_ixmb3")
 }],
 "loop": true,
-"name": &"Jump",
+"name": &"jump",
 "speed": 5.0
 }, {
 "frames": [{
@@ -81,7 +81,7 @@ animations = [{
 "texture": ExtResource("10_cn1t2")
 }],
 "loop": true,
-"name": &"Run",
+"name": &"jun",
 "speed": 5.0
 }, {
 "frames": [{
@@ -98,7 +98,7 @@ animations = [{
 "texture": ExtResource("14_ibk3i")
 }],
 "loop": true,
-"name": &"Sword Idle",
+"name": &"sword Idle",
 "speed": 5.0
 }]
 
@@ -110,8 +110,7 @@ script = ExtResource("1_kuvy8")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_6untl")
-animation = &"Idle"
-frame_progress = 0.857223
+animation = &"sword Idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2)

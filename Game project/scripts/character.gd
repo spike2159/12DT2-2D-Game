@@ -27,12 +27,12 @@ func _physics_process(delta):
 
 	if velocity.y == 0 and is_on_floor():
 		if velocity.x == 0:
-			$AnimatedSprite2D.play("Idle")
+			$AnimatedSprite2D.play("idle")
 		if velocity.x < -1 or velocity.x > 1:
-			$AnimatedSprite2D.play("Run")
+			$AnimatedSprite2D.play("run")
 	elif velocity.y > 0:
-		$AnimatedSprite2D.play("Fall")
+		$AnimatedSprite2D.play("fall")
 	else:
-		$AnimatedSprite2D.play("Jump")
+		$AnimatedSprite2D.play("jump")
 
 	move_and_slide()
