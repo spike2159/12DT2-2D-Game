@@ -7,32 +7,71 @@ const JUMP_VELOCITY = -400.0
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-var is_falling = false
+var double_jump = false
+var has_jumped = true
+var crouch = false
+var attacking = false
 
 func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y += gravity * delta
+		has_jumped = true
 
 	# Handles jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+	if Input.is_action_just_pressed("jump") and is_on_floor() and not attacking:
 		velocity.y = JUMP_VELOCITY
+	elif Input.is_action_just_pressed("jump") and double_jump and not attacking:
+		velocity.y = JUMP_VELOCITY
+		double_jump = false
 
-	var direction = Input.get_axis("ui_left", "ui_right")
+	if is_on_floor() and has_jumped:
+		has_jumped = false
+
+	if is_on_floor() and not double_jump:
+		double_jump = true
+
+	if is_on_floor() and Input.is_action_just_pressed("crouch"):
+		if not crouch:
+			crouch = true
+		elif crouch:
+			crouch = false
+
+	var direction = Input.get_axis("left", "right")
 	if direction:
-		velocity.x = direction * SPEED
-		$AnimatedSprite2D.scale.x = direction
+		$AnimatedSprite2D.scale.x = direction 
+		if crouch and not attacking:
+			velocity.x = direction * SPEED * 0.5
+		elif attacking:
+			velocity.x = 0
+		else:
+			velocity.x = direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
-	if velocity.y == 0 and is_on_floor():
-		if velocity.x == 0:
-			$AnimatedSprite2D.play("idle")
-		if velocity.x < -1 or velocity.x > 1:
-			$AnimatedSprite2D.play("run")
-	elif velocity.y > 0:
-		$AnimatedSprite2D.play("fall")
-	else:
-		$AnimatedSprite2D.play("jump")
+	if Input.is_action_just_pressed("attack") and is_on_floor() and not crouch:
+		attacking = true
+		$AnimationPlayer.play("attack_1")
 
+	if $AnimationPlayer.current_animation != "attack_1":
+		attacking = false
+
+	if velocity.y == 0 and is_on_floor() and not attacking: 
+		if velocity.x == 0:
+			if crouch:
+				$AnimationPlayer.play("crouch")
+			else:
+				$AnimationPlayer.play("idle")
+		if velocity.x < -1 or velocity.x > 1:
+			if crouch:
+				$AnimationPlayer.play("crouch_walk")
+			else:
+				$AnimationPlayer.play("run")
+	elif velocity.y > 0 and not attacking:
+		$AnimationPlayer.play("fall")
+	elif has_jumped and Input.is_action_just_pressed("jump") and not attacking:
+		$AnimationPlayer.play("somersault")
+	elif not has_jumped and not attacking:
+		$AnimationPlayer.play("jump")
+		
 	move_and_slide()
