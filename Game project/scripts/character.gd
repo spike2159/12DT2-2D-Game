@@ -7,6 +7,9 @@ const JUMP_VELOCITY = -400.0
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
+@onready var crouch_raycast1 = $Crouch_raycast1
+@onready var crouch_raycast2 = $Crouch_raycast2
+
 var double_jump = false
 var has_jumped = true
 var crouch = false
@@ -32,10 +35,11 @@ func _physics_process(delta):
 		double_jump = true
 
 	if is_on_floor() and Input.is_action_just_pressed("crouch"):
-		if not crouch:
+		if crouch:
+			if not_under_object():
+				crouch = false
+		else:
 			crouch = true
-		elif crouch:
-			crouch = false
 
 	var direction = Input.get_axis("left", "right")
 	if direction:
@@ -75,3 +79,11 @@ func _physics_process(delta):
 		$AnimationPlayer.play("jump")
 		
 	move_and_slide()
+
+func not_under_object() -> bool:
+	var result = !crouch_raycast1.is_colliding() && !crouch_raycast2.is_colliding()
+	return result
+
+func _on_sword_area_2d_area_entered(area):
+	if area.has_meta("testdummy"):
+		area.queue_free()
