@@ -177,6 +177,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_384or"]
+radius = 18.0
+
 [sub_resource type="Animation" id="Animation_weik3"]
 length = 0.001
 tracks/0/type = "value"
@@ -230,7 +233,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("../Sword_area2d/Sword_collision_shape2d:disabled")
+tracks/4/path = NodePath("Sword_area2d/Sword_collision_shape2d:disabled")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -294,7 +297,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("../Sword_area2d/Sword_collision_shape2d:disabled")
+tracks/4/path = NodePath("Sword_area2d/Sword_collision_shape2d:disabled")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -359,7 +362,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("../Sword_area2d/Sword_collision_shape2d:disabled")
+tracks/4/path = NodePath("Sword_area2d/Sword_collision_shape2d:disabled")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -424,7 +427,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("../Sword_area2d/Sword_collision_shape2d:disabled")
+tracks/4/path = NodePath("Sword_area2d/Sword_collision_shape2d:disabled")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -489,7 +492,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("../Sword_area2d/Sword_collision_shape2d:disabled")
+tracks/4/path = NodePath("Sword_area2d/Sword_collision_shape2d:disabled")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -554,7 +557,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("../Sword_area2d/Sword_collision_shape2d:disabled")
+tracks/4/path = NodePath("Sword_area2d/Sword_collision_shape2d:disabled")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -619,7 +622,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("../Sword_area2d/Sword_collision_shape2d:disabled")
+tracks/4/path = NodePath("Sword_area2d/Sword_collision_shape2d:disabled")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -684,7 +687,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("../Sword_area2d/Sword_collision_shape2d:disabled")
+tracks/4/path = NodePath("Sword_area2d/Sword_collision_shape2d:disabled")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -749,7 +752,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("../Sword_area2d/Sword_collision_shape2d:disabled")
+tracks/4/path = NodePath("Sword_area2d/Sword_collision_shape2d:disabled")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -778,15 +781,21 @@ size = Vector2(18, 30.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vnypm"]
 size = Vector2(19, 22)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_384or"]
-radius = 18.0
-
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_jx5fu")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_6untl")
 animation = &"idle"
+
+[node name="Sword_area2d" type="Area2D" parent="AnimatedSprite2D"]
+
+[node name="Sword_collision_shape2d" type="CollisionShape2D" parent="AnimatedSprite2D/Sword_area2d"]
+position = Vector2(8, -3)
+shape = SubResource("CircleShape2D_384or")
+disabled = true
+debug_color = Color(0.427451, 0, 0, 0.419608)
+metadata/sword = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../AnimatedSprite2D")
@@ -811,15 +820,6 @@ position = Vector2(0, 6.5)
 shape = SubResource("RectangleShape2D_vnypm")
 disabled = true
 
-[node name="Sword_area2d" type="Area2D" parent="."]
-
-[node name="Sword_collision_shape2d" type="CollisionShape2D" parent="Sword_area2d"]
-position = Vector2(8, -3)
-shape = SubResource("CircleShape2D_384or")
-disabled = true
-debug_color = Color(0.427451, 0, 0, 0.419608)
-metadata/sword = true
-
 [node name="Crouch_raycast1" type="RayCast2D" parent="."]
 position = Vector2(-9, 12)
 target_position = Vector2(0, -25)
@@ -827,3 +827,5 @@ target_position = Vector2(0, -25)
 [node name="Crouch_raycast2" type="RayCast2D" parent="."]
 position = Vector2(9, 12)
 target_position = Vector2(0, -25)
+
+[connection signal="area_entered" from="AnimatedSprite2D/Sword_area2d" to="." method="_on_sword_area_2d_area_entered"]
