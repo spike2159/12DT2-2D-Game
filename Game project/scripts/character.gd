@@ -12,8 +12,9 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 var double_jump = false
 var has_jumped = true
-var crouch = false
+var is_crouching = false
 var attacking = false
+var stuck_under_object = false
 
 func _physics_process(delta):
 	# Add the gravity.
@@ -34,17 +35,22 @@ func _physics_process(delta):
 	if is_on_floor() and not double_jump:
 		double_jump = true
 
-	if is_on_floor() and Input.is_action_just_pressed("crouch"):
-		if crouch:
-			if not_under_object():
-				crouch = false
+	if Input.is_action_just_pressed("crouch"):
+		crouch()
+	elif Input.is_action_just_released("crouch"):
+		if not_under_object():
+			stand()
 		else:
-			crouch = true
+			stuck_under_object = true
+
+	if stuck_under_object and not_under_object():
+		stand()
+		stuck_under_object = false
 
 	var direction = Input.get_axis("left", "right")
 	if direction:
-		$AnimatedSprite2D.scale.x = direction 
-		if crouch and not attacking:
+		$AnimatedSprite2D.scale.x = direction  
+		if is_crouching and not attacking:
 			velocity.x = direction * SPEED * 0.5
 		elif attacking:
 			velocity.x = 0
@@ -53,7 +59,7 @@ func _physics_process(delta):
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
-	if Input.is_action_just_pressed("attack") and is_on_floor() and not crouch:
+	if Input.is_action_just_pressed("attack") and is_on_floor() and not is_crouching:
 		attacking = true
 		$AnimationPlayer.play("attack_1")
 
@@ -62,26 +68,36 @@ func _physics_process(delta):
 
 	if velocity.y == 0 and is_on_floor() and not attacking: 
 		if velocity.x == 0:
-			if crouch:
+			if is_crouching:
 				$AnimationPlayer.play("crouch")
 			else:
 				$AnimationPlayer.play("idle")
 		if velocity.x < -1 or velocity.x > 1:
-			if crouch:
+			if is_crouching:
 				$AnimationPlayer.play("crouch_walk")
 			else:
 				$AnimationPlayer.play("run")
-	elif velocity.y > 0 and not attacking:
+	elif velocity.y > 0 and not attacking and not is_crouching:
 		$AnimationPlayer.play("fall")
-	elif has_jumped and Input.is_action_just_pressed("jump") and not attacking:
+	elif has_jumped and Input.is_action_just_pressed("jump") and not attacking and not is_crouching:
 		$AnimationPlayer.play("somersault")
-	elif not has_jumped and not attacking:
+	elif not has_jumped and not attacking and not is_crouching:
 		$AnimationPlayer.play("jump")
 		
 	move_and_slide()
 
+func crouch():
+	if is_crouching:
+		return
+	is_crouching = true
+
+func stand():
+	if !is_crouching:
+		return
+	is_crouching = false
+
 func not_under_object() -> bool:
-	var result = !crouch_raycast1.is_colliding() && !crouch_raycast2.is_colliding()
+	var result = !crouch_raycast1.is_colliding() and !crouch_raycast2.is_colliding()
 	return result
 
 func _on_sword_area_2d_area_entered(area):
