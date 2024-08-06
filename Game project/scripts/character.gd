@@ -24,9 +24,15 @@ func _physics_process(delta):
 
 	# Handles jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor() and not attacking:
-		velocity.y = JUMP_VELOCITY
+		if is_crouching:
+			velocity.y = JUMP_VELOCITY * 0.75
+		else:
+			velocity.y = JUMP_VELOCITY
 	elif Input.is_action_just_pressed("jump") and double_jump and not attacking:
-		velocity.y = JUMP_VELOCITY
+		if is_crouching:
+			velocity.y = JUMP_VELOCITY * 0.75
+		else:
+			velocity.y = JUMP_VELOCITY 
 		double_jump = false
 
 	if is_on_floor() and has_jumped:
@@ -35,7 +41,7 @@ func _physics_process(delta):
 	if is_on_floor() and not double_jump:
 		double_jump = true
 
-	if Input.is_action_just_pressed("crouch"):
+	if Input.is_action_just_pressed("crouch") and is_on_floor():
 		crouch()
 	elif Input.is_action_just_released("crouch"):
 		if not_under_object():
@@ -51,7 +57,7 @@ func _physics_process(delta):
 	if direction:
 		$AnimatedSprite2D.scale.x = direction  
 		if is_crouching and not attacking:
-			velocity.x = direction * SPEED * 0.5
+			velocity.x = direction * SPEED * 0.75
 		elif attacking:
 			velocity.x = 0
 		else:
@@ -103,3 +109,4 @@ func not_under_object() -> bool:
 func _on_sword_area_2d_area_entered(area):
 	if area.has_meta("testdummy"):
 		area.queue_free()
+

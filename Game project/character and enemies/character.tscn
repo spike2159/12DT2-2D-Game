@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://dao0jbh3ed1wm"]
+[gd_scene load_steps=57 format=3 uid="uid://dao0jbh3ed1wm"]
 
 [ext_resource type="Script" path="res://scripts/character.gd" id="1_jx5fu"]
 [ext_resource type="Texture2D" uid="uid://cnw6ycf1s3qb4" path="res://assets/Character/Adventurer-1.5/Individual Sprites/adventurer-idle-00.png" id="1_s3p0u"]
@@ -30,7 +30,14 @@
 [ext_resource type="Texture2D" uid="uid://dur1065cdx7mv" path="res://assets/Character/Adventurer-1.5/Individual Sprites/adventurer-run-05.png" id="10_cn1t2"]
 [ext_resource type="Texture2D" uid="uid://cuknbh20ng4qy" path="res://assets/Character/Crouch-walk/Crouch-walk4.png" id="10_pqyxd"]
 [ext_resource type="Texture2D" uid="uid://djxkh4laoccas" path="res://assets/Character/Crouch-walk/Crouch-walk5.png" id="11_10pp4"]
+[ext_resource type="Texture2D" uid="uid://qw541to365cp" path="res://assets/Character/Adventurer-1.5/Individual Sprites/adventurer-die-00.png" id="17_fqtm8"]
+[ext_resource type="Texture2D" uid="uid://coyw5pdt6oons" path="res://assets/Character/Adventurer-1.5/Individual Sprites/adventurer-die-01.png" id="18_cdd0m"]
+[ext_resource type="Texture2D" uid="uid://835jr2shwk6r" path="res://assets/Character/Adventurer-1.5/Individual Sprites/adventurer-die-02.png" id="19_h0hd6"]
+[ext_resource type="Texture2D" uid="uid://eadaa11xw0wt" path="res://assets/Character/Adventurer-1.5/Individual Sprites/adventurer-die-03.png" id="20_j45b8"]
+[ext_resource type="Texture2D" uid="uid://c3icsltrnjnfr" path="res://assets/Character/Adventurer-1.5/Individual Sprites/adventurer-die-04.png" id="21_ly4pl"]
 [ext_resource type="Texture2D" uid="uid://c8qhsdfqbcy4x" path="res://assets/Character/Adventurer-1.5/Individual Sprites/adventurer-smrslt-00.png" id="22_t5x7c"]
+[ext_resource type="Texture2D" uid="uid://ciuviqm056h3n" path="res://assets/Character/Adventurer-1.5/Individual Sprites/adventurer-die-05.png" id="22_xay0q"]
+[ext_resource type="Texture2D" uid="uid://4tv3xorieals" path="res://assets/Character/Adventurer-1.5/Individual Sprites/adventurer-die-06.png" id="23_746gk"]
 [ext_resource type="Texture2D" uid="uid://cq2kw8ch1wv0a" path="res://assets/Character/Adventurer-1.5/Individual Sprites/adventurer-smrslt-01.png" id="23_gj4o2"]
 [ext_resource type="Texture2D" uid="uid://dbtgolvvu2rup" path="res://assets/Character/Adventurer-1.5/Individual Sprites/adventurer-smrslt-02.png" id="24_4f6ku"]
 [ext_resource type="Texture2D" uid="uid://bsyf3t54vmyfv" path="res://assets/Character/Adventurer-1.5/Individual Sprites/adventurer-smrslt-03.png" id="25_3a2ny"]
@@ -95,6 +102,32 @@ animations = [{
 }],
 "loop": true,
 "name": &"crouch_walk",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("17_fqtm8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_cdd0m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_h0hd6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_j45b8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_ly4pl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_xay0q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_746gk")
+}],
+"loop": true,
+"name": &"death",
 "speed": 5.0
 }, {
 "frames": [{
@@ -439,7 +472,7 @@ tracks/4/keys = {
 
 [sub_resource type="Animation" id="Animation_rmw5u"]
 resource_name = "fall"
-length = 0.3
+length = 0.8
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -460,7 +493,7 @@ tracks/1/path = NodePath(".:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.15),
+"times": PackedFloat32Array(0, 0.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [0, 1]
@@ -472,7 +505,7 @@ tracks/2/path = NodePath("../Standing_collision_shape2d:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.3),
+"times": PackedFloat32Array(0, 0.9),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [false, false]
@@ -484,7 +517,7 @@ tracks/3/path = NodePath("../Crouching_collision_shape2d:disabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.3),
+"times": PackedFloat32Array(0, 0.9),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [true, true]
@@ -496,7 +529,7 @@ tracks/4/path = NodePath("Sword_area2d/Sword_collision_shape2d:disabled")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.3),
+"times": PackedFloat32Array(0, 0.9),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, true]
@@ -697,6 +730,33 @@ tracks/4/keys = {
 "values": [true, true]
 }
 
+[sub_resource type="Animation" id="Animation_j87xq"]
+resource_name = "slide"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"slide"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 0]
+}
+
 [sub_resource type="Animation" id="Animation_06pl7"]
 resource_name = "somersault"
 length = 0.4
@@ -772,6 +832,7 @@ _data = {
 "idle": SubResource("Animation_wtvom"),
 "jump": SubResource("Animation_bs6yl"),
 "run": SubResource("Animation_bdrrh"),
+"slide": SubResource("Animation_j87xq"),
 "somersault": SubResource("Animation_06pl7")
 }
 
@@ -779,7 +840,7 @@ _data = {
 size = Vector2(18, 30.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vnypm"]
-size = Vector2(19, 22)
+size = Vector2(18, 22)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_jx5fu")
