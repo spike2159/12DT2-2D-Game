@@ -1,0 +1,143 @@
+[gd_scene load_steps=16 format=3 uid="uid://ccs4srw7mynhv"]
+
+[ext_resource type="Script" path="res://hud/heart_gui.gd" id="1_ffxck"]
+[ext_resource type="Texture2D" uid="uid://iyevrm0kj88o" path="res://assets/ui/hearts.png" id="1_hv75g"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yrfav"]
+atlas = ExtResource("1_hv75g")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gukuo"]
+atlas = ExtResource("1_hv75g")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_26jbw"]
+atlas = ExtResource("1_hv75g")
+region = Rect2(16, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hcdh0"]
+atlas = ExtResource("1_hv75g")
+region = Rect2(32, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i2w37"]
+atlas = ExtResource("1_hv75g")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mr5iv"]
+atlas = ExtResource("1_hv75g")
+region = Rect2(16, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ub402"]
+atlas = ExtResource("1_hv75g")
+region = Rect2(32, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fkgon"]
+atlas = ExtResource("1_hv75g")
+region = Rect2(0, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_711o4"]
+atlas = ExtResource("1_hv75g")
+region = Rect2(0, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uyo0w"]
+atlas = ExtResource("1_hv75g")
+region = Rect2(16, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hjl8x"]
+atlas = ExtResource("1_hv75g")
+region = Rect2(32, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dn2kd"]
+atlas = ExtResource("1_hv75g")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uu3gh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yrfav")
+}],
+"loop": false,
+"name": &"full",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gukuo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_26jbw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hcdh0")
+}],
+"loop": false,
+"name": &"full_to_half",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i2w37")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mr5iv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ub402")
+}],
+"loop": false,
+"name": &"full_to_none",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fkgon")
+}],
+"loop": false,
+"name": &"half",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_711o4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uyo0w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hjl8x")
+}],
+"loop": false,
+"name": &"half_to_none",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dn2kd")
+}],
+"loop": false,
+"name": &"none",
+"speed": 5.0
+}]
+
+[node name="heart_gui" type="Panel"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(64, 64)
+offset_right = 64.0
+offset_bottom = 64.0
+script = ExtResource("1_ffxck")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(4, 4)
+texture = ExtResource("1_hv75g")
+centered = false
+hframes = 13
+vframes = 20
+frame = 54
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(32, 32)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_uu3gh")
+animation = &"full_to_none"

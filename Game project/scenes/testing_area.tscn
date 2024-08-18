@@ -1,15 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://c3j7leq7wjjbt"]
+[gd_scene load_steps=6 format=3 uid="uid://c3j7leq7wjjbt"]
 
-[ext_resource type="PackedScene" uid="uid://dao0jbh3ed1wm" path="res://character and enemies/character.tscn" id="1_y8wa4"]
-[ext_resource type="PackedScene" uid="uid://b5lr0udrjl1d0" path="res://character and enemies/test_dummy.tscn" id="2_olwt0"]
+[ext_resource type="Script" path="res://scenes/testing_area.gd" id="1_45wra"]
+[ext_resource type="PackedScene" uid="uid://dao0jbh3ed1wm" path="res://character and enemies/player.tscn" id="1_y8wa4"]
+[ext_resource type="PackedScene" uid="uid://dlmbtju5nhd18" path="res://hud/hearts_container.tscn" id="2_vsinn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yhiml"]
 size = Vector2(642.743, 24)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_26t5d"]
-size = Vector2(40, 40)
+size = Vector2(48, 48)
 
 [node name="Node2D" type="Node2D"]
+script = ExtResource("1_45wra")
+
+[node name="Player" parent="." instance=ExtResource("1_y8wa4")]
+position = Vector2(0, -32)
 
 [node name="Platform" type="StaticBody2D" parent="."]
 position = Vector2(-160, 0)
@@ -46,7 +51,7 @@ scale = Vector2(0.945946, 0.666667)
 shape = SubResource("RectangleShape2D_yhiml")
 
 [node name="Platform3" type="StaticBody2D" parent="."]
-position = Vector2(240, -40)
+position = Vector2(240, -42)
 scale = Vector2(0.415447, -1.23498)
 
 [node name="ColorRect" type="ColorRect" parent="Platform3"]
@@ -62,31 +67,27 @@ position = Vector2(160, 0)
 scale = Vector2(0.945946, 0.666667)
 shape = SubResource("RectangleShape2D_yhiml")
 
-[node name="CharacterBody2D" parent="." instance=ExtResource("1_y8wa4")]
-position = Vector2(0, -32)
-
 [node name="Spike" type="Area2D" parent="."]
-visible = false
-metadata/spike = false
-
-[node name="ColorRect" type="ColorRect" parent="Spike"]
-visible = false
-offset_left = -248.0
-offset_top = -48.0
-offset_right = -208.0
-offset_bottom = -8.0
+position = Vector2(-128, -16)
+scale = Vector2(0.999988, 0.333715)
+metadata/spike = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Spike"]
-visible = false
-position = Vector2(-228, -28)
 shape = SubResource("RectangleShape2D_26t5d")
 debug_color = Color(0.427451, 0, 0, 0.419608)
 
-[node name="Test_dummy" parent="." instance=ExtResource("2_olwt0")]
-position = Vector2(-128, -32)
+[node name="ColorRect" type="ColorRect" parent="Spike"]
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = 24.0
+color = Color(1, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
 
-[node name="Test_dummy2" parent="." instance=ExtResource("2_olwt0")]
-position = Vector2(-192, -32)
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Test_dummy3" parent="." instance=ExtResource("2_olwt0")]
-position = Vector2(-256, -32)
+[node name="hearts_container" parent="CanvasLayer" instance=ExtResource("2_vsinn")]
+offset_right = 0.0
+offset_bottom = 0.0
+
+[connection signal="area_entered" from="Spike" to="Player" method="_on_spike_area_entered"]

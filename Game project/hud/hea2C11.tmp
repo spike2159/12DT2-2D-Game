@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dlmbtju5nhd18"]
+
+[ext_resource type="Script" path="res://hud/hearts_container.gd" id="1_viqop"]
+
+[node name="hearts_container" type="HBoxContainer"]
+self_modulate = Color(1, 1, 1, 0)
+offset_right = 160.0
+offset_bottom = 64.0
+theme_override_constants/separation = -16
+script = ExtResource("1_viqop")

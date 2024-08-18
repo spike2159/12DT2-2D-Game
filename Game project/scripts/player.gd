@@ -1,14 +1,19 @@
 extends CharacterBody2D
 
 
-const SPEED = 300.0
-const JUMP_VELOCITY = -400.0
+signal health_changed
+
+const speed = 300.0
+const jump_velocity = -400.0
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var crouch_raycast1 = $Crouch_raycast1
 @onready var crouch_raycast2 = $Crouch_raycast2
+
+@export var max_health = 3
+@onready var current_health: int = max_health
 
 var double_jump = false
 var has_jumped = true
@@ -25,14 +30,14 @@ func _physics_process(delta):
 	# Handles jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor() and not attacking:
 		if is_crouching:
-			velocity.y = JUMP_VELOCITY * 0.75
+			velocity.y = jump_velocity * 0.75
 		else:
-			velocity.y = JUMP_VELOCITY
+			velocity.y = jump_velocity
 	elif Input.is_action_just_pressed("jump") and double_jump and not attacking:
 		if is_crouching:
-			velocity.y = JUMP_VELOCITY * 0.75
+			velocity.y = jump_velocity * 0.75
 		else:
-			velocity.y = JUMP_VELOCITY 
+			velocity.y = jump_velocity 
 		double_jump = false
 
 	if is_on_floor() and has_jumped:
@@ -57,13 +62,13 @@ func _physics_process(delta):
 	if direction:
 		$AnimatedSprite2D.scale.x = direction  
 		if is_crouching and not attacking:
-			velocity.x = direction * SPEED * 0.75
+			velocity.x = direction * speed * 0.75
 		elif attacking:
 			velocity.x = 0
 		else:
-			velocity.x = direction * SPEED
+			velocity.x = direction * speed
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+		velocity.x = move_toward(velocity.x, 0, speed)
 
 	if Input.is_action_just_pressed("attack") and is_on_floor() and not is_crouching:
 		attacking = true
@@ -110,3 +115,10 @@ func _on_sword_area_2d_area_entered(area):
 	if area.has_meta("testdummy"):
 		area.queue_free()
 
+func _on_hit_detection_area_entered(area):
+	if area.has_meta("spike"):
+		print("dmg taken")
+		current_health -= 1
+		if current_health < 0:
+			current_health = max_health
+		health_changed.emit(current_health)
