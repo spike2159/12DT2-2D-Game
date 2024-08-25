@@ -1,6 +1,6 @@
 extends HBoxContainer
 
-@onready var heart_gui_class = preload("res://hud/heart_gui.tscn")
+@onready var heart_gui_class = preload("res://scenes/hud/heart_gui.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

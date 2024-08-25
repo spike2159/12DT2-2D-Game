@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://ccs4srw7mynhv"]
 
-[ext_resource type="Script" path="res://hud/heart_gui.gd" id="1_ffxck"]
+[ext_resource type="Script" path="res://scripts/hud/heart_gui.gd" id="1_ffxck"]
 [ext_resource type="Texture2D" uid="uid://iyevrm0kj88o" path="res://assets/ui/hearts.png" id="1_hv75g"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yrfav"]

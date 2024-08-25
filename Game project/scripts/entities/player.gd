@@ -1,6 +1,5 @@
 extends CharacterBody2D
 
-
 signal health_changed
 
 const speed = 300.0
@@ -14,6 +13,8 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @export var max_health = 3
 @onready var current_health: int = max_health
+var can_take_damage = true
+@export var hit = false
 
 var double_jump = false
 var has_jumped = true
@@ -28,12 +29,12 @@ func _physics_process(delta):
 		has_jumped = true
 
 	# Handles jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor() and not attacking:
+	if Input.is_action_just_pressed("jump") and is_on_floor() and !attacking:
 		if is_crouching:
 			velocity.y = jump_velocity * 0.75
 		else:
 			velocity.y = jump_velocity
-	elif Input.is_action_just_pressed("jump") and double_jump and not attacking:
+	elif Input.is_action_just_pressed("jump") and double_jump and !attacking:
 		if is_crouching:
 			velocity.y = jump_velocity * 0.75
 		else:
@@ -43,7 +44,7 @@ func _physics_process(delta):
 	if is_on_floor() and has_jumped:
 		has_jumped = false
 
-	if is_on_floor() and not double_jump:
+	if is_on_floor() and !double_jump:
 		double_jump = true
 
 	if Input.is_action_just_pressed("crouch") and is_on_floor():
@@ -70,24 +71,37 @@ func _physics_process(delta):
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
 
-	if Input.is_action_just_pressed("attack") and is_on_floor() and not is_crouching:
+	if Input.is_action_just_pressed("attack") and is_on_floor() and not is_crouching and !hit:
 		attacking = true
 		$AnimationPlayer.play("attack_1")
 
 	if $AnimationPlayer.current_animation != "attack_1":
 		attacking = false
 
+
 	if velocity.y == 0 and is_on_floor() and not attacking: 
 		if velocity.x == 0:
-			if is_crouching:
-				$AnimationPlayer.play("crouch")
+			if is_crouching == true:
+				if hit:
+					$AnimationPlayer.play("hit_crouch")
+				else:
+					$AnimationPlayer.play("crouch")
 			else:
-				$AnimationPlayer.play("idle")
-		if velocity.x < -1 or velocity.x > 1:
-			if is_crouching:
-				$AnimationPlayer.play("crouch_walk")
+				if hit:
+					$AnimationPlayer.play("hit_idle")
+				else:
+					$AnimationPlayer.play("idle")
+		if velocity.x != 0:
+			if is_crouching == true:
+				if hit:
+					$AnimationPlayer.play("hit_crouch")
+				else:
+					$AnimationPlayer.play("crouch_walk")
 			else:
-				$AnimationPlayer.play("run")
+				if hit:
+					$AnimationPlayer.play("hit_run")
+				else:
+					$AnimationPlayer.play("run")
 	elif velocity.y > 0 and not attacking and not is_crouching:
 		$AnimationPlayer.play("fall")
 	elif has_jumped and Input.is_action_just_pressed("jump") and not attacking and not is_crouching:
@@ -116,9 +130,18 @@ func _on_sword_area_2d_area_entered(area):
 		area.queue_free()
 
 func _on_hit_detection_area_entered(area):
-	if area.has_meta("spike"):
-		print("dmg taken")
+	if area.has_meta("damage") and can_take_damage:
+		hit = true
+		iframes()
 		current_health -= 1
-		if current_health < 0:
-			current_health = max_health
+		if current_health <= 0:
+			die()
 		health_changed.emit(current_health)
+
+func iframes():
+	can_take_damage = false
+	await get_tree().create_timer(.3).timeout
+	can_take_damage = true
+
+func die():
+	get_tree().reload_current_scene()

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dlmbtju5nhd18"]
 
-[ext_resource type="Script" path="res://hud/hearts_container.gd" id="1_viqop"]
+[ext_resource type="Script" path="res://scripts/hud/hearts_container.gd" id="1_viqop"]
 
 [node name="hearts_container" type="HBoxContainer"]
 self_modulate = Color(1, 1, 1, 0)
