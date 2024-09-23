@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var hearts_container = $CanvasLayer/hearts_container
+@onready var hearts_container = $Ui/Hearts_container
 @onready var player = $Player
 
 # Called when the node enters the scene tree for the first time.

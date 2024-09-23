@@ -61,7 +61,7 @@ func _physics_process(delta):
 
 	var direction = Input.get_axis("left", "right")
 	if direction:
-		$AnimatedSprite2D.scale.x = direction  
+		$Animatedsprite.scale.x = direction  
 		if is_crouching and not attacking:
 			velocity.x = direction * speed * 0.75
 		elif attacking:
@@ -73,9 +73,9 @@ func _physics_process(delta):
 
 	if Input.is_action_just_pressed("attack") and is_on_floor() and not is_crouching and !hit:
 		attacking = true
-		$AnimationPlayer.play("attack_1")
+		$Animation_player.play("attack_1")
 
-	if $AnimationPlayer.current_animation != "attack_1":
+	if $Animation_player.current_animation != "attack_1":
 		attacking = false
 
 
@@ -83,31 +83,31 @@ func _physics_process(delta):
 		if velocity.x == 0:
 			if is_crouching == true:
 				if hit:
-					$AnimationPlayer.play("hit_crouch")
+					$Animation_player.play("hit_crouch")
 				else:
-					$AnimationPlayer.play("crouch")
+					$Animation_player.play("crouch")
 			else:
 				if hit:
-					$AnimationPlayer.play("hit_idle")
+					$Animation_player.play("hit_idle")
 				else:
-					$AnimationPlayer.play("idle")
+					$Animation_player.play("idle")
 		if velocity.x != 0:
 			if is_crouching == true:
 				if hit:
-					$AnimationPlayer.play("hit_crouch")
+					$Animation_player.play("hit_crouch")
 				else:
-					$AnimationPlayer.play("crouch_walk")
+					$Animation_player.play("crouch_walk")
 			else:
 				if hit:
-					$AnimationPlayer.play("hit_run")
+					$Animation_player.play("hit_run")
 				else:
-					$AnimationPlayer.play("run")
+					$Animation_player.play("run")
 	elif velocity.y > 0 and not attacking and not is_crouching:
-		$AnimationPlayer.play("fall")
+		$Animation_player.play("fall")
 	elif has_jumped and Input.is_action_just_pressed("jump") and not attacking and not is_crouching:
-		$AnimationPlayer.play("somersault")
+		$Animation_player.play("somersault")
 	elif not has_jumped and not attacking and not is_crouching:
-		$AnimationPlayer.play("jump")
+		$Animation_player.play("jump")
 		
 	move_and_slide()
 
