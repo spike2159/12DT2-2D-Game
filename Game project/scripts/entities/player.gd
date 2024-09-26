@@ -125,10 +125,6 @@ func not_under_object() -> bool:
 	var result = !crouch_raycast1.is_colliding() and !crouch_raycast2.is_colliding()
 	return result
 
-func _on_sword_area_2d_area_entered(area):
-	if area.has_meta("testdummy"):
-		area.queue_free()
-
 func _on_hit_detection_area_entered(area):
 	if area.has_meta("damage") and can_take_damage:
 		hit = true
