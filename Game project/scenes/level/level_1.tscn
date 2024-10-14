@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://dk4d32xywk4em"]
+[gd_scene load_steps=35 format=3 uid="uid://bconpaw1tltkx"]
 
 [ext_resource type="Script" path="res://scripts/level/level.gd" id="1_e717p"]
 [ext_resource type="Texture2D" uid="uid://du83xi428s6ni" path="res://assets/Legacy-Fantasy - High Forest 2.3/Assets/Tiles.png" id="1_g303p"]
@@ -16,6 +16,8 @@
 [ext_resource type="PackedScene" uid="uid://dlmbtju5nhd18" path="res://scenes/hud/hearts_container.tscn" id="10_pwx23"]
 [ext_resource type="Texture2D" uid="uid://clivupqxq4siw" path="res://assets/Legacy-Fantasy - High Forest 2.3/Trees/Green-Tree.png" id="12_rnawd"]
 [ext_resource type="Texture2D" uid="uid://mgqhfkxbw4r4" path="res://assets/Legacy-Fantasy - High Forest 2.3/Trees/Red-Tree.png" id="13_vthr1"]
+[ext_resource type="PackedScene" uid="uid://cr7di7bgrqpcs" path="res://scenes/entities/snail.tscn" id="17_ujnf7"]
+[ext_resource type="PackedScene" uid="uid://c2y4xtqbddbmo" path="res://scenes/level/test_lava.tscn" id="18_ec7jy"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pwy2r"]
 texture = ExtResource("1_g303p")
@@ -50224,7 +50226,7 @@ texture = ExtResource("8_8b3oq")
 13:7/0/physics_layer_0/angular_velocity = 0.0
 
 [sub_resource type="TileSet" id="TileSet_1fjnx"]
-physics_layer_0/collision_layer = 1
+physics_layer_0/collision_layer = 3
 sources/0 = SubResource("TileSetAtlasSource_pwy2r")
 sources/1 = SubResource("TileSetAtlasSource_3iehv")
 sources/2 = SubResource("TileSetAtlasSource_7nv4y")
@@ -50295,3 +50297,19 @@ debug_color = Color(0.742591, 0.487975, 1.92523e-07, 0.419608)
 [node name="Ui" type="CanvasLayer" parent="."]
 
 [node name="Hearts_container" parent="Ui" instance=ExtResource("10_pwx23")]
+
+[node name="Snail1" parent="." instance=ExtResource("17_ujnf7")]
+position = Vector2(1248, -72)
+hiding = false
+
+[node name="Snail2" parent="." instance=ExtResource("17_ujnf7")]
+position = Vector2(736, -8)
+hiding = false
+
+[node name="Snail3" parent="." instance=ExtResource("17_ujnf7")]
+position = Vector2(1640, -64)
+hiding = false
+
+[node name="Snail4" parent="." instance=ExtResource("17_ujnf7")]
+position = Vector2(2112, -160)
+hiding = false
