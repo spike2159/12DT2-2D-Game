@@ -50313,3 +50313,7 @@ hiding = false
 [node name="Snail4" parent="." instance=ExtResource("17_ujnf7")]
 position = Vector2(2112, -160)
 hiding = false
+
+[node name="TEST LAVA" parent="." instance=ExtResource("18_ec7jy")]
+position = Vector2(400, -40)
+scale = Vector2(2.00027, -0.500205)
