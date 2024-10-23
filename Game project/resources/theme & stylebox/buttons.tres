@@ -1,0 +1,11 @@
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://cya8i0g4ftnib"]
+
+[ext_resource type="StyleBox" uid="uid://by4y2x5up1cww" path="res://resources/theme & stylebox/main_menu.tres" id="1_lx7pr"]
+[ext_resource type="StyleBox" uid="uid://bgs7wclwmen43" path="res://resources/theme & stylebox/hover_button.tres" id="2_aokt7"]
+[ext_resource type="StyleBox" uid="uid://deoonqnhxkeym" path="res://resources/theme & stylebox/normal_button.tres" id="3_ruxkt"]
+
+[resource]
+Button/font_sizes/font_size = 32
+Button/styles/focus = ExtResource("1_lx7pr")
+Button/styles/hover = ExtResource("2_aokt7")
+Button/styles/normal = ExtResource("3_ruxkt")

@@ -1,0 +1,110 @@
+[gd_scene load_steps=5 format=3 uid="uid://dmqejqhs4ry6u"]
+
+[ext_resource type="Texture2D" uid="uid://q20duy3j01a5" path="res://assets/ui/GUI.png" id="1_cg3a6"]
+[ext_resource type="Theme" uid="uid://cya8i0g4ftnib" path="res://resources/theme & stylebox/buttons.tres" id="1_tbvvm"]
+[ext_resource type="Script" path="res://scripts/ui/death_screen.gd" id="2_yd2wf"]
+
+[sub_resource type="SystemFont" id="SystemFont_wcb0c"]
+font_names = PackedStringArray("Britannic")
+
+[node name="Death_screen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_tbvvm")
+script = ExtResource("2_yd2wf")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0.176471, 0.176471, 0.176471, 1)
+
+[node name="Menu_buttons" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -112.0
+offset_top = 60.0
+offset_right = 112.0
+offset_bottom = 188.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_cg3a6")
+region_rect = Rect2(0, 32, 48, 48)
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu_buttons"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -66.0
+offset_top = -33.0
+offset_right = 66.0
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+
+[node name="Respwan" type="Button" parent="Menu_buttons/VBoxContainer"]
+layout_mode = 2
+text = "Respwan"
+
+[node name="Return" type="Button" parent="Menu_buttons/VBoxContainer"]
+layout_mode = 2
+text = "Return"
+
+[node name="Dead" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -236.0
+offset_right = 163.0
+offset_bottom = -116.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_cg3a6")
+region_rect = Rect2(0, 32, 48, 48)
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="You_died" type="Label" parent="Dead"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -144.0
+offset_top = -36.0
+offset_right = 147.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.631373, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("SystemFont_wcb0c")
+theme_override_font_sizes/font_size = 75
+text = "You Died"
+horizontal_alignment = 1
+vertical_alignment = 1
