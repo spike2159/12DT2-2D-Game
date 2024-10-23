@@ -1194,6 +1194,8 @@ size = Vector2(18, 22)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_jx5fu")
+speed = 250.0
+jump_velocity = -300.0
 metadata/player = true
 
 [node name="Animatedsprite" type="AnimatedSprite2D" parent="."]
@@ -1244,8 +1246,6 @@ target_position = Vector2(0, -25)
 
 [node name="Hit_detection" type="Area2D" parent="."]
 visible = false
-collision_layer = 3
-collision_mask = 3
 metadata/player = true
 
 [node name="Hit_detection_stand" type="CollisionShape2D" parent="Hit_detection"]
@@ -1261,3 +1261,4 @@ debug_color = Color(0, 0.666667, 0.027451, 0.419608)
 
 [connection signal="area_entered" from="Animatedsprite/Sword_area" to="." method="_on_sword_area_2d_area_entered"]
 [connection signal="area_entered" from="Hit_detection" to="." method="_on_hit_detection_area_entered"]
+[connection signal="area_exited" from="Hit_detection" to="." method="_on_hit_detection_area_exited"]

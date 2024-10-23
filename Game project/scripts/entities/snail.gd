@@ -9,6 +9,7 @@ var facing_right = false
 @export var hiding = false
 @export var unhide_finished = true
 var player_detected = false
+var dead = false
 
 func _ready():
 	$Snail_animation.play("walk")
@@ -22,9 +23,9 @@ func _physics_process(delta):
 	if $Wall_detector.is_colliding() and!player_detected and is_on_floor():
 		flip()
 
-	if !hiding:
+	if !hiding and !dead:
 		velocity.x = speed
-	elif hiding:
+	else:
 		velocity.x = 0
 		
 
@@ -40,6 +41,7 @@ func flip():
 
 func _on_hit_detection_area_entered(area):
 	if area.has_meta("sword") and !hiding:
+		dead = true
 		$Snail_animation.play("die")
 		await $Snail_animation.animation_finished
 		queue_free()

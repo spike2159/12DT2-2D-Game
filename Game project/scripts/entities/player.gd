@@ -2,8 +2,8 @@ extends CharacterBody2D
 
 signal health_changed
 
-const speed = 300.0
-const jump_velocity = -400.0
+@export var speed = 300.0
+@export var jump_velocity = -400.0
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -15,6 +15,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var current_health: int = max_health
 var can_take_damage = true
 @export var hit = false
+var in_damage_area = false
 
 var double_jump = false
 var has_jumped = true
@@ -108,7 +109,10 @@ func _physics_process(delta):
 		$Animation_player.play("somersault")
 	elif not has_jumped and not attacking and not is_crouching:
 		$Animation_player.play("jump")
-		
+
+	if can_take_damage and in_damage_area:
+		take_damage()
+
 	move_and_slide()
 
 func crouch():
@@ -126,18 +130,28 @@ func not_under_object() -> bool:
 	return result
 
 func _on_hit_detection_area_entered(area):
-	if area.has_meta("damage") and can_take_damage:
-		hit = true
-		iframes()
-		current_health -= 1
-		if current_health <= 0:
-			die()
-		health_changed.emit(current_health)
+	if area.has_meta("damage"):
+		in_damage_area = true
+
+func _on_hit_detection_area_exited(area):
+	if area.has_meta("damage"):
+		in_damage_area = false
+
+func take_damage():
+	hit = true
+	iframes()
+	current_health -= 1
+	if current_health <= 0:
+		die()
+	health_changed.emit(current_health)
 
 func iframes():
 	can_take_damage = false
-	await get_tree().create_timer(.3).timeout
+	await get_tree().create_timer(1).timeout
 	can_take_damage = true
 
 func die():
 	get_tree().reload_current_scene()
+
+
+

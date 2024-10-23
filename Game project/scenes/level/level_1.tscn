@@ -50254,11 +50254,11 @@ script = ExtResource("1_e717p")
 [node name="Sky" type="Sprite2D" parent="."]
 z_index = -10
 texture_repeat = 2
-position = Vector2(1280, -264)
-scale = Vector2(3, 3)
+position = Vector2(1280, -152)
+scale = Vector2(2, 2)
 texture = ExtResource("1_j7ai7")
 region_enabled = true
-region_rect = Rect2(0, 0, 853.33, 272)
+region_rect = Rect2(0, 0, 1280, 271.838)
 
 [node name="Tilemap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_1fjnx")
