@@ -1,0 +1,139 @@
+[gd_scene load_steps=12 format=3 uid="uid://blpv1sq5mdi5j"]
+
+[ext_resource type="StyleBox" uid="uid://bgs7wclwmen43" path="res://resources/theme & stylebox/hover_button.tres" id="1_3ryly"]
+[ext_resource type="StyleBox" uid="uid://deoonqnhxkeym" path="res://resources/theme & stylebox/normal_button.tres" id="1_jrsjn"]
+[ext_resource type="Shader" path="res://resources/shaders/scroll.gdshader" id="1_uika1"]
+[ext_resource type="Texture2D" uid="uid://chry7gu530wbu" path="res://assets/Legacy-Fantasy - High Forest 2.3/Background/Background.png" id="2_e7jwj"]
+[ext_resource type="Script" path="res://scripts/ui/main_menu.gd" id="3_2p73e"]
+[ext_resource type="Texture2D" uid="uid://q20duy3j01a5" path="res://assets/ui/GUI.png" id="3_efl63"]
+[ext_resource type="PackedScene" uid="uid://dqt7ed6ykqwrp" path="res://scenes/ui/info.tscn" id="7_0op48"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3wvly"]
+
+[sub_resource type="Theme" id="Theme_so7vg"]
+Button/font_sizes/font_size = 32
+Button/styles/focus = SubResource("StyleBoxEmpty_3wvly")
+Button/styles/hover = ExtResource("1_3ryly")
+Button/styles/normal = ExtResource("1_jrsjn")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qxpb1"]
+shader = ExtResource("1_uika1")
+
+[sub_resource type="SystemFont" id="SystemFont_7y22y"]
+font_names = PackedStringArray("Britannic")
+subpixel_positioning = 0
+
+[node name="Main_menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_so7vg")
+script = ExtResource("3_2p73e")
+
+[node name="Background" type="TextureRect" parent="."]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_qxpb1")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_e7jwj")
+metadata/_edit_use_anchors_ = true
+
+[node name="Title" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.228395
+anchor_right = 0.5
+anchor_bottom = 0.228395
+offset_left = -356.0
+offset_top = -68.0
+offset_right = 356.0
+offset_bottom = 52.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_efl63")
+region_rect = Rect2(0, 32, 48, 48)
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="Rogue_adventures" type="Label" parent="Title"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -84.0
+offset_top = -16.0
+offset_right = 84.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("SystemFont_7y22y")
+theme_override_font_sizes/font_size = 75
+text = "Rogue Adventures"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Menu_buttons" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.691
+anchor_right = 0.5
+anchor_bottom = 0.691
+offset_left = -88.0
+offset_top = -103.768
+offset_right = 88.0
+offset_bottom = 104.232
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_efl63")
+region_rect = Rect2(0, 32, 48, 48)
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu_buttons"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -66.0
+offset_top = -70.0
+offset_right = 66.0
+offset_bottom = 70.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+
+[node name="Play" type="Button" parent="Menu_buttons/VBoxContainer"]
+layout_mode = 2
+text = "Play"
+
+[node name="Info" type="Button" parent="Menu_buttons/VBoxContainer"]
+layout_mode = 2
+text = "Info"
+
+[node name="Quit" type="Button" parent="Menu_buttons/VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+
+[node name="Information" parent="." instance=ExtResource("7_0op48")]
+visible = false
+layout_mode = 1
