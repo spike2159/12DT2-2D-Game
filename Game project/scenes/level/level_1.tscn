@@ -13,7 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://brpexxflixtet" path="res://assets/Legacy-Fantasy - High Forest 2.3/Trees/Golden-Tree.png" id="7_bxfow"]
 [ext_resource type="Texture2D" uid="uid://cieqeaf85ws0u" path="res://assets/Legacy-Fantasy - High Forest 2.3/Trees/Background.png" id="8_8b3oq"]
 [ext_resource type="PackedScene" uid="uid://dao0jbh3ed1wm" path="res://scenes/entities/player.tscn" id="8_otgur"]
-[ext_resource type="PackedScene" uid="uid://dlmbtju5nhd18" path="res://scenes/hud/hearts_container.tscn" id="10_pwx23"]
+[ext_resource type="PackedScene" uid="uid://dlmbtju5nhd18" path="res://scenes/ui/hearts_container.tscn" id="10_pwx23"]
 [ext_resource type="Texture2D" uid="uid://clivupqxq4siw" path="res://assets/Legacy-Fantasy - High Forest 2.3/Trees/Green-Tree.png" id="12_rnawd"]
 [ext_resource type="Texture2D" uid="uid://mgqhfkxbw4r4" path="res://assets/Legacy-Fantasy - High Forest 2.3/Trees/Red-Tree.png" id="13_vthr1"]
 [ext_resource type="PackedScene" uid="uid://cr7di7bgrqpcs" path="res://scenes/entities/snail.tscn" id="17_ujnf7"]
