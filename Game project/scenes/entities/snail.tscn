@@ -1,0 +1,186 @@
+[gd_scene load_steps=11 format=3 uid="uid://cr7di7bgrqpcs"]
+
+[ext_resource type="Texture2D" uid="uid://b810kbig6wio3" path="res://assets/Legacy-Fantasy - High Forest 2.3/Mob/Snail/all.png" id="1_ousf2"]
+[ext_resource type="Script" path="res://scripts/entities/snail.gd" id="1_vjb5n"]
+
+[sub_resource type="Animation" id="Animation_wv5jj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Snail_sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_a2dp4"]
+resource_name = "die"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Snail_sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [24, 25, 26, 27, 28, 29, 30, 31]
+}
+
+[sub_resource type="Animation" id="Animation_oqexr"]
+resource_name = "hide"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Snail_sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11, 12, 13, 14]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:hiding")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.6),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_2wis7"]
+resource_name = "unhide"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Snail_sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [16, 17, 18, 19, 20, 21, 22, 23]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:hiding")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.7),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:unhide_finished")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_uk4en"]
+resource_name = "walk"
+length = 0.7
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Snail_sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3u5c3"]
+_data = {
+"RESET": SubResource("Animation_wv5jj"),
+"die": SubResource("Animation_a2dp4"),
+"hide": SubResource("Animation_oqexr"),
+"unhide": SubResource("Animation_2wis7"),
+"walk": SubResource("Animation_uk4en")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rl8va"]
+radius = 12.0
+height = 32.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5rj6d"]
+radius = 12.0
+height = 32.0
+
+[node name="Snail" type="CharacterBody2D"]
+script = ExtResource("1_vjb5n")
+hiding = true
+unhide_finished = false
+
+[node name="Snail_sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_ousf2")
+hframes = 8
+vframes = 5
+
+[node name="Snail_animation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_3u5c3")
+}
+
+[node name="Snail_collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4)
+rotation = -1.5708
+shape = SubResource("CapsuleShape2D_rl8va")
+
+[node name="Hit_detection" type="Area2D" parent="."]
+visible = false
+metadata/snail = true
+
+[node name="Hit_detection_collision" type="CollisionShape2D" parent="Hit_detection"]
+position = Vector2(0, 4)
+rotation = -1.57
+shape = SubResource("CapsuleShape2D_5rj6d")
+debug_color = Color(0, 0.666667, 0.027451, 0.419608)
+
+[node name="Edge_detector" type="RayCast2D" parent="."]
+position = Vector2(-16, 4)
+target_position = Vector2(0, 24)
+collision_mask = 2
+
+[node name="Wall_detector" type="RayCast2D" parent="."]
+position = Vector2(-16, 0)
+target_position = Vector2(-8, 0)
+collision_mask = 2
+
+[node name="Player_detection" type="Area2D" parent="."]
+
+[node name="Player_detection_collision" type="CollisionPolygon2D" parent="Player_detection"]
+polygon = PackedVector2Array(0, -16, -64, -32, -64, 32, 0, 16)
+
+[connection signal="area_entered" from="Hit_detection" to="." method="_on_hit_detection_area_entered"]
+[connection signal="area_entered" from="Player_detection" to="." method="_on_player_detection_area_entered"]
+[connection signal="area_exited" from="Player_detection" to="." method="_on_player_detection_area_exited"]
