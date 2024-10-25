@@ -150,6 +150,7 @@ vframes = 5
 libraries = {
 "": SubResource("AnimationLibrary_3u5c3")
 }
+speed_scale = 0.8
 
 [node name="Snail_collision" type="CollisionShape2D" parent="."]
 visible = false

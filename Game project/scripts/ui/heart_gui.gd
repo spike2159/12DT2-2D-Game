@@ -1,19 +1,11 @@
-extends Panel
+extends Panel  # Inherits from Panel, used for creating UI elements in Godot
 
-@onready var sprite = $Heart_sprite
-# @onready var spritee = $AnimatedSprite2D
+@onready var sprite = $Heart_sprite  # References the heart sprite in the panel
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
 
 func _update(full: bool):
+	# Updates the sprite's frame based on the health status
 	if full: 
-		sprite.frame = 39
+		sprite.frame = 39  # Sets the sprite to the full heart frame
 	else:
-		sprite.frame = 54
+		sprite.frame = 54  # Sets the sprite to the empty heart frame
